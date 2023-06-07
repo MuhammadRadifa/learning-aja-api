@@ -1,4 +1,5 @@
 const UsersTableTestHelper = require("../../../../tests/UsersTableTestHelper");
+const AuthenticationError = require("../../../Commons/Exceptions/AuthenticationError");
 const InvariantError = require("../../../Commons/Exceptions/invariantError");
 const RegisterUser = require("../../../Domains/user/entities/RegisterUser");
 const RegisteredUser = require("../../../Domains/user/entities/RegisteredUser");
@@ -145,14 +146,14 @@ describe("UserRepositoryPostgres", () => {
   });
 
   describe("getPasswordByEmail", () => {
-    it("should throw InvariantError when user not found", () => {
+    it("should throw AuthenticationError when user not found", () => {
       // Arrange
       const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
 
       // Action & Assert
       return expect(
         userRepositoryPostgres.getPasswordByEmail("dicoding")
-      ).rejects.toThrowError(InvariantError);
+      ).rejects.toThrowError(AuthenticationError);
     });
 
     it("should return email password when user is found", async () => {
@@ -182,6 +183,29 @@ describe("UserRepositoryPostgres", () => {
       return expect(
         userRepositoryPostgres.getIdByEmail("dicoding")
       ).rejects.toThrowError(InvariantError);
+    });
+  });
+
+  describe("verifyAvailableEmail", () => {
+    it("should throw InvariantError when email not available", async () => {
+      // Arrange
+      await UsersTableTestHelper.addUser({ email: "testuser@mail.com" });
+      const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
+
+      // Action & Assert
+      await expect(
+        userRepositoryPostgres.verifyAvailableEmail("testuser@mail.com")
+      ).rejects.toThrowError(InvariantError);
+    });
+
+    it("should not throw InvariantError when email available", async () => {
+      // Arrange
+      const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
+
+      // Action & Assert
+      await expect(
+        userRepositoryPostgres.verifyAvailableEmail("test@mail.com")
+      ).resolves.not.toThrowError(InvariantError);
     });
   });
 });

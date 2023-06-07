@@ -1,4 +1,5 @@
 const InvariantError = require("../../Commons/Exceptions/invariantError");
+const AuthenticationError = require("../../Commons/Exceptions/AuthenticationError");
 const RegisteredUser = require("../../Domains/user/entities/RegisteredUser");
 const UserRepository = require("../../Domains/user/UserRepository");
 
@@ -60,7 +61,7 @@ class UserRepositoryPostgres extends UserRepository {
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      throw new InvariantError("email tidak ditemukan");
+      throw new AuthenticationError("email tidak ditemukan");
     }
 
     return result.rows[0].password;
@@ -94,6 +95,19 @@ class UserRepositoryPostgres extends UserRepository {
     }
 
     return result.rows[0].id;
+  }
+
+  async verifyAvailableEmail(email) {
+    const query = {
+      text: "SELECT email FROM users WHERE email = $1",
+      values: [email],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (result.rowCount) {
+      throw new InvariantError("email tidak tersedia");
+    }
   }
 }
 

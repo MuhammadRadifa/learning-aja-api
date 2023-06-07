@@ -13,6 +13,7 @@ class AddUserUseCase {
     await this._inputValidator.ValidateEmail(registerUser.email);
     await this._inputValidator.ValidatePassword(registerUser.password);
     await this._userRepository.verifyAvailableUsername(registerUser.username);
+    await this._userRepository.verifyAvailableEmail(registerUser.email);
     registerUser.password = await this._passwordHash.hash(
       registerUser.password
     );

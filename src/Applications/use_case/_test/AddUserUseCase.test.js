@@ -30,6 +30,9 @@ describe("AddUserUseCase", () => {
     mockUserRepository.verifyAvailableUsername = jest
       .fn()
       .mockImplementation(() => Promise.resolve());
+    mockUserRepository.verifyAvailableEmail = jest
+      .fn()
+      .mockImplementation(() => Promise.resolve());
     mockInputValidator.ValidateUsername = jest
       .fn()
       .mockImplementation(() => Promise.resolve());
