@@ -170,7 +170,7 @@ describe("UserRepositoryPostgres", () => {
         "dicoding@gmail.com"
       );
 
-      expect(password).toBe("secret");
+      expect(password).toBe("secret12345");
     });
   });
 
