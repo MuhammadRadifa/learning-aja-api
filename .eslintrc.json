@@ -13,6 +13,9 @@
         "ecmaVersion": "latest"
     },
     "rules": {
-        "no-underscore-dangle": "off"
+        "no-underscore-dangle": "off",
+        "class-methods-use-this": "off",
+        "no-unused-vars" :"off",
+        "import/no-extraneous-dependencies": "off"
     }
 }

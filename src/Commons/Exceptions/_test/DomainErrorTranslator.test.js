@@ -1,5 +1,5 @@
 const DomainErrorTranslator = require("../DomainErrorTranslator");
-const InvariantError = require("../InvariantError");
+const InvariantError = require("../invariantError");
 
 describe("DomainErrorTranslator", () => {
   it("should translate error correctly", () => {
@@ -43,14 +43,12 @@ describe("DomainErrorTranslator", () => {
       DomainErrorTranslator.translate(
         new Error("USER_LOGIN.NOT_CONTAIN_NEEDED_PROPERTY")
       )
-    ).toStrictEqual(
-      new InvariantError("harus mengirimkan username dan password")
-    );
+    ).toStrictEqual(new InvariantError("harus mengirimkan email dan password"));
     expect(
       DomainErrorTranslator.translate(
         new Error("USER_LOGIN.NOT_MEET_DATA_TYPE_SPECIFICATION")
       )
-    ).toStrictEqual(new InvariantError("username dan password harus string"));
+    ).toStrictEqual(new InvariantError("email dan password harus string"));
     expect(
       DomainErrorTranslator.translate(
         new Error("REFRESH_AUTHENTICATION_USE_CASE.NOT_CONTAIN_REFRESH_TOKEN")

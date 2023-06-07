@@ -1,4 +1,4 @@
-const InvariantError = require("./InvariantError");
+const InvariantError = require("./invariantError");
 
 const DomainErrorTranslator = {
   translate(error) {
@@ -20,10 +20,10 @@ DomainErrorTranslator._directories = {
     "tidak dapat membuat user baru karena username mengandung karakter terlarang"
   ),
   "USER_LOGIN.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
-    "harus mengirimkan username dan password"
+    "harus mengirimkan email dan password"
   ),
   "USER_LOGIN.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
-    "username dan password harus string"
+    "email dan password harus string"
   ),
   "REFRESH_AUTHENTICATION_USE_CASE.NOT_CONTAIN_REFRESH_TOKEN":
     new InvariantError("harus mengirimkan token refresh"),
