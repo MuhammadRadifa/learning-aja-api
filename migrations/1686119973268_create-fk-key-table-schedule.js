@@ -7,5 +7,5 @@ exports.up = (pgm) => {
 };
 
 exports.down = (pgm) => {
-  pgm.dropConstraint("schedules", "fk_schedules.userId");
+  pgm.dropConstraint("schedules", "fk_schedules.ownerId");
 };
