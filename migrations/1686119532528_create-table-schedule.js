@@ -21,7 +21,7 @@ exports.up = (pgm) => {
       notNull: false,
     },
     schedule: {
-      type: "timestamp",
+      type: "TEXT",
       notNull: true,
     },
     ownerId: {
@@ -29,8 +29,8 @@ exports.up = (pgm) => {
       notNull: true,
     },
     createdAt: {
-      type: "timestamp",
-      default: pgm.func("current_timestamp"),
+      type: "TEXT",
+      notNull: true,
     },
   });
 };
