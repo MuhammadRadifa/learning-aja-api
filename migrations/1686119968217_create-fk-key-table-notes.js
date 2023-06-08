@@ -7,5 +7,5 @@ exports.up = (pgm) => {
 };
 
 exports.down = (pgm) => {
-  pgm.dropConstraint("notes", "fk_notes.userId");
+  pgm.dropConstraint("notes", "fk_notes.ownerId");
 };
