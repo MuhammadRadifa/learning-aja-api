@@ -14,7 +14,7 @@ describe("a DetailTodo entities", () => {
   it("should throw error when payload did not meet data type specification", () => {
     // Arrange
     const payload = {
-      id: 123,
+      todoId: 123,
     };
 
     // Action and Assert
@@ -26,13 +26,13 @@ describe("a DetailTodo entities", () => {
   it("should create DetailTodo object correctly", () => {
     // Arrange
     const payload = {
-      id: "abc",
+      todoId: "abc",
     };
 
     // Action
-    const { id } = new DetailTodo(payload);
+    const { todoId } = new DetailTodo(payload);
 
     // Assert
-    expect(id).toEqual(payload.id);
+    expect(todoId).toEqual(payload.todoId);
   });
 });

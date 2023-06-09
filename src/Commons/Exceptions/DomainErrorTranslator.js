@@ -33,29 +33,50 @@ DomainErrorTranslator._directories = {
     new InvariantError("harus mengirimkan token refresh"),
   "DELETE_AUTHENTICATION_USE_CASE.PAYLOAD_NOT_MEET_DATA_TYPE_SPECIFICATION":
     new InvariantError("refresh token harus string"),
-  "POST_TODOLIST.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
-    "tidak dapat menambahkan note baru karena properti yang dibutuhkan tidak ada"
+  "POST_TODO.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
+    "tidak dapat membuat todo baru karena properti yang dibutuhkan tidak ada"
   ),
-  "POST_TODOLIST.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
-    "tidak dapat membuat note baru karena tipe data tidak sesuai"
+  "POST_TODO.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
+    "tidak dapat membuat todo baru karena tipe data tidak sesuai"
   ),
-  "POST_TODOLIST.TITLE_LIMIT_CHAR": new InvariantError(
+  "POST_TODO.TITLE_LIMIT_CHAR": new InvariantError(
     "tidak dapat membuat user baru karena karakter username melebihi batas limit"
   ),
-  "POSTED_TODOLIST.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
-    "tidak dapat membuat note baru karena properti yang dibutuhkan tidak ada"
+  "POSTED_TODO.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
+    "tidak dapat membuat todo baru karena properti yang dibutuhkan tidak ada"
   ),
-  "POSTED_TODOLIST.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
-    "tidak dapat membuat note baru karena tipe data tidak sesuai"
+  "POSTED_TODO.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
+    "tidak dapat membuat todo baru karena tipe data tidak sesuai"
   ),
-  "POSTED_TODOLIST.TITLE_LIMIT_CHAR": new InvariantError(
-    "tidak dapat membuat user baru karena karakter username melebihi batas limit"
+  "POSTED_TODO.TITLE_LIMIT_CHAR": new InvariantError(
+    "tidak dapat membuat todo baru karena karakter username melebihi batas limit"
   ),
-  "ADDED_TODOLIST.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
-    "tidak dapat membuat note baru karena properti yang dibutuhkan tidak ada"
+  "ADDED_TODO.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
+    "tidak dapat membuat todo baru karena properti yang dibutuhkan tidak ada"
   ),
-  "ADDED_TODOLIST.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
-    "tidak dapat membuat note baru karena tipe data tidak sesuai"
+  "ADDED_TODO.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
+    "tidak dapat membuat todo baru karena tipe data tidak sesuai"
+  ),
+  "DETAIL_TODO.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
+    "tidak dapat menampilkan detail todo karena properti yang dibutuhkan tidak ada"
+  ),
+  "DETAIL_TODO.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
+    "tidak dapat menampilkan detail todo karena tipe data tidak sesuai"
+  ),
+  "UPDATE_TODO.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
+    "tidak dapat mengubah todo karena properti yang dibutuhkan tidak ada"
+  ),
+  "UPDATE_TODO.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
+    "tidak dapat mengubah todo karena tipe data tidak sesuai"
+  ),
+  "UPDATE_TODO.TITLE_LIMIT_CHAR": new InvariantError(
+    "tidak dapat mengubah todo karena karakter username melebihi batas limit"
+  ),
+  "DELETE_TODO.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
+    "tidak dapat menghapus todo karena properti yang dibutuhkan tidak ada"
+  ),
+  "DELETE_TODO.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
+    "tidak dapat menghapus todo karena tipe data tidak sesuai"
   ),
   "POST_SCHEDULE.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
     "tidak dapat menambahkan jadwal baru karena properti yang dibutuhkan tidak ada"

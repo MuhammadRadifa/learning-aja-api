@@ -16,6 +16,9 @@ const UserRepositoryPostgres = require("./repository/UserRepositoryPostgres");
 const AuthenticationRepository = require("../Domains/authentications/AuthenticationRepository");
 const AuthenticationRepositoryPostgres = require("./repository/AuthenticationRepositoryPostgres");
 
+const TodoRepository = require("../Domains/todolist/TodoRepository");
+const TodoRepositoryPostgres = require("./repository/TodoRepositoryPostgres");
+
 const JwtTokenManager = require("./security/JwtTokenManager");
 const BcryptPasswordHash = require("./security/BcryptPasswordHash");
 const JoiInputValidator = require("./security/JoiInputValidator");
@@ -28,6 +31,9 @@ const InputValidator = require("../Applications/security/InputValidator");
 const LoginUserUseCase = require("../Applications/use_case/LoginUserUseCase");
 const LogoutUserUseCase = require("../Applications/use_case/LogoutUserUseCase");
 const RefreshAuthenticationUseCase = require("../Applications/use_case/RefreshAuthenticationUseCase");
+const AddTodoUseCase = require("../Applications/use_case/AddTodoUseCase");
+const DetailTodoUseCase = require("../Applications/use_case/DetailTodoUseCase");
+const DeleteTodoUseCase = require("../Applications/use_case/DeleteTodoUseCase");
 
 // creating container
 const container = createContainer();
@@ -88,6 +94,20 @@ container.register([
       dependencies: [
         {
           concrete: Jwt.token,
+        },
+      ],
+    },
+  },
+  {
+    key: TodoRepository.name,
+    Class: TodoRepositoryPostgres,
+    parameter: {
+      dependencies: [
+        {
+          concrete: pool,
+        },
+        {
+          concrete: nanoid,
         },
       ],
     },
@@ -168,6 +188,45 @@ container.register([
         {
           name: "authenticationTokenManager",
           internal: AuthenticationTokenManager.name,
+        },
+      ],
+    },
+  },
+  {
+    key: AddTodoUseCase.name,
+    Class: AddTodoUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "todoRepository",
+          internal: TodoRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: DetailTodoUseCase.name,
+    Class: DetailTodoUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "todoRepository",
+          internal: TodoRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: DeleteTodoUseCase.name,
+    Class: DeleteTodoUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "todoRepository",
+          internal: TodoRepository.name,
         },
       ],
     },

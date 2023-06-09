@@ -6,22 +6,12 @@ class DetailTodoUseCase {
   }
 
   async execute(useCasePayload) {
-    this._validateUseCasePayload(useCasePayload);
-    const { id } = new DetailTodo(useCasePayload);
-    const todo = await this._todoRepository.getTodoDetail(id);
+    const { todoId } = new DetailTodo(useCasePayload);
+    await this._todoRepository.checkAvailabilityTodo(todoId);
+    await this._todoRepository.verifyTodoOwner(todoId, useCasePayload.ownerId);
+    const todo = await this._todoRepository.getTodoDetail(todoId);
 
     return todo;
-  }
-
-  _validateUseCasePayload(payload) {
-    const { id } = payload;
-    if (!id) {
-      throw new Error("DETAIL_TODO_USE_CASE.NOT_CONTAIN_NEEDED_PROPERTY");
-    }
-
-    if (typeof id !== "string") {
-      throw new Error("DETAIL_TODO_USE_CASE.NOT_MEET_DATA_TYPE_SPECIFICATION");
-    }
   }
 }
 

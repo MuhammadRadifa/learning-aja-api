@@ -18,6 +18,10 @@ class TodoRepository {
   async getTodoDetail(id) {
     throw new Error("TODO_REPOSITORY.METHOD_NOT_IMPLEMENTED");
   }
+
+  async checkAvailabilityTodo(id) {
+    throw new Error("TODO_REPOSITORY.METHOD_NOT_IMPLEMENTED");
+  }
 }
 
 module.exports = TodoRepository;

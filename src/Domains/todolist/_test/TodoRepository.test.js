@@ -27,5 +27,11 @@ describe("TodoRepository interface", () => {
     await expect(todoRepository.getTodoDetail("abc")).rejects.toThrowError(
       "TODO_REPOSITORY.METHOD_NOT_IMPLEMENTED"
     );
+
+    await expect(
+      todoRepository.checkAvailabilityTodo({
+        todoId: "abc",
+      })
+    ).rejects.toThrowError("TODO_REPOSITORY.METHOD_NOT_IMPLEMENTED");
   });
 });

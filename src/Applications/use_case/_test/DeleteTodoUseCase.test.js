@@ -8,27 +8,25 @@ describe("DeleteTodoUseCase", () => {
 
     await expect(
       deletedTodoUseCase.execute(useCasePayload)
-    ).rejects.toThrowError("DELETE_TODO_USE_CASE.NOT_CONTAIN_NEEDED_PROPERTY");
+    ).rejects.toThrowError("DELETE_TODO.NOT_CONTAIN_NEEDED_PROPERTY");
   });
 
   it("should throw error if use case payload not meet data type specification", async () => {
     const useCasePayload = {
-      id: 123,
-      ownerId: {},
+      todoId: 123,
+      ownerId: 123,
     };
     const deletedTodoUseCase = new DeleteTodoUseCase({});
 
     await expect(
       deletedTodoUseCase.execute(useCasePayload)
-    ).rejects.toThrowError(
-      "DELETE_TODO_USE_CASE.NOT_MEET_DATA_TYPE_SPECIFICATION"
-    );
+    ).rejects.toThrowError("DELETE_TODO.NOT_MEET_DATA_TYPE_SPECIFICATION");
   });
 
   it("should orchestrating the delete todo action correctly", async () => {
     // Arrange
     const useCasePayload = {
-      id: "todo-123",
+      todoId: "todo-123",
       ownerId: "user-123",
     };
 
@@ -36,6 +34,7 @@ describe("DeleteTodoUseCase", () => {
     const mockTodoRepository = new TodoRepository();
 
     /** mocking needed function */
+    mockTodoRepository.checkAvailabilityTodo = jest.fn(() => Promise.resolve());
     mockTodoRepository.verifyTodoOwner = jest.fn(() => Promise.resolve());
     mockTodoRepository.deleteTodoById = jest.fn(() => Promise.resolve());
 
@@ -49,9 +48,11 @@ describe("DeleteTodoUseCase", () => {
 
     // Assert
     expect(mockTodoRepository.verifyTodoOwner).toBeCalledWith(
-      useCasePayload.id,
+      useCasePayload.todoId,
       useCasePayload.ownerId
     );
-    expect(mockTodoRepository.deleteTodoById).toBeCalledWith(useCasePayload.id);
+    expect(mockTodoRepository.deleteTodoById).toBeCalledWith(
+      useCasePayload.todoId
+    );
   });
 });

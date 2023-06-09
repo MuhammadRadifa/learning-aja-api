@@ -2,17 +2,17 @@ class DetailTodo {
   constructor(payload) {
     this._verifyPayload(payload);
 
-    const { id } = payload;
+    const { todoId } = payload;
 
-    this.id = id;
+    this.todoId = todoId;
   }
 
-  _verifyPayload({ id }) {
-    if (!id) {
+  _verifyPayload({ todoId }) {
+    if (!todoId) {
       throw new Error("DETAIL_TODO.NOT_CONTAIN_NEEDED_PROPERTY");
     }
 
-    if (typeof id !== "string") {
+    if (typeof todoId !== "string") {
       throw new Error("DETAIL_TODO.NOT_MEET_DATA_TYPE_SPECIFICATION");
     }
   }

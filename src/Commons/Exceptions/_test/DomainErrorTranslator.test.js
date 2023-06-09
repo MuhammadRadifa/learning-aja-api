@@ -75,47 +75,45 @@ describe("DomainErrorTranslator", () => {
     ).toStrictEqual(new InvariantError("refresh token harus string"));
     expect(
       DomainErrorTranslator.translate(
-        new Error("POSTED_TODOLIST.NOT_CONTAIN_NEEDED_PROPERTY")
+        new Error("POSTED_TODO.NOT_CONTAIN_NEEDED_PROPERTY")
       )
     ).toStrictEqual(
       new InvariantError(
-        "tidak dapat membuat note baru karena properti yang dibutuhkan tidak ada"
+        "tidak dapat membuat todo baru karena properti yang dibutuhkan tidak ada"
       )
     );
     expect(
       DomainErrorTranslator.translate(
-        new Error("POSTED_TODOLIST.NOT_MEET_DATA_TYPE_SPECIFICATION")
+        new Error("POSTED_TODO.NOT_MEET_DATA_TYPE_SPECIFICATION")
       )
     ).toStrictEqual(
       new InvariantError(
-        "tidak dapat membuat note baru karena tipe data tidak sesuai"
+        "tidak dapat membuat todo baru karena tipe data tidak sesuai"
+      )
+    );
+    expect(
+      DomainErrorTranslator.translate(new Error("POSTED_TODO.TITLE_LIMIT_CHAR"))
+    ).toStrictEqual(
+      new InvariantError(
+        "tidak dapat membuat todo baru karena karakter username melebihi batas limit"
       )
     );
     expect(
       DomainErrorTranslator.translate(
-        new Error("POSTED_TODOLIST.TITLE_LIMIT_CHAR")
+        new Error("ADDED_TODO.NOT_CONTAIN_NEEDED_PROPERTY")
       )
     ).toStrictEqual(
       new InvariantError(
-        "tidak dapat membuat user baru karena karakter username melebihi batas limit"
+        "tidak dapat membuat todo baru karena properti yang dibutuhkan tidak ada"
       )
     );
     expect(
       DomainErrorTranslator.translate(
-        new Error("ADDED_TODOLIST.NOT_CONTAIN_NEEDED_PROPERTY")
+        new Error("ADDED_TODO.NOT_MEET_DATA_TYPE_SPECIFICATION")
       )
     ).toStrictEqual(
       new InvariantError(
-        "tidak dapat membuat note baru karena properti yang dibutuhkan tidak ada"
-      )
-    );
-    expect(
-      DomainErrorTranslator.translate(
-        new Error("ADDED_TODOLIST.NOT_MEET_DATA_TYPE_SPECIFICATION")
-      )
-    ).toStrictEqual(
-      new InvariantError(
-        "tidak dapat membuat note baru karena tipe data tidak sesuai"
+        "tidak dapat membuat todo baru karena tipe data tidak sesuai"
       )
     );
   });

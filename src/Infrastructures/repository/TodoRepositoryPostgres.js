@@ -12,7 +12,7 @@ class TodoRepositoryPostgres extends TodoRepository {
 
   async addTodo({ title, content, status = "unfinished", ownerId }) {
     const id = `todo-${this._idGenerator()}`;
-    const date = ``;
+    const date = new Date().toISOString();
     const query = {
       text: `INSERT INTO notes VALUES($1, $2, $3, $4, $5, $6) RETURNING id, title, content, "ownerId"`,
       values: [id, title, content, status, date, ownerId],
@@ -75,6 +75,19 @@ class TodoRepositoryPostgres extends TodoRepository {
     return new PostedTodo({
       ...result.rows[0],
     });
+  }
+
+  async checkAvailabilityTodo(id) {
+    const query = {
+      text: "SELECT id FROM notes WHERE id = $1",
+      values: [id],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rowCount) {
+      throw new NotFoundError("todo tidak ditemukan");
+    }
   }
 }
 
