@@ -1,5 +1,4 @@
 const TodoRepository = require("../../../Domains/todolist/TodoRepository");
-const DetailTodo = require("../../../Domains/todolist/entities/DetailTodo");
 const DetailTodoUseCase = require("../DetailTodoUseCase");
 
 describe("DetailTodoUseCase", () => {

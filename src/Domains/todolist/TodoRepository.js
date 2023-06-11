@@ -19,6 +19,10 @@ class TodoRepository {
     throw new Error("TODO_REPOSITORY.METHOD_NOT_IMPLEMENTED");
   }
 
+  async editTodoById({ id, title, content, status }) {
+    throw new Error("TODO_REPOSITORY.METHOD_NOT_IMPLEMENTED");
+  }
+
   async checkAvailabilityTodo(id) {
     throw new Error("TODO_REPOSITORY.METHOD_NOT_IMPLEMENTED");
   }

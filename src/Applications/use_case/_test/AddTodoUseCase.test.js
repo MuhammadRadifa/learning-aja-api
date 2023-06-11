@@ -2,7 +2,6 @@ const PostTodo = require("../../../Domains/todolist/entities/PostTodo");
 const PostedTodo = require("../../../Domains/todolist/entities/PostedTodo");
 const TodoRepository = require("../../../Domains/todolist/TodoRepository");
 const AddTodoUseCase = require("../AddTodoUseCase");
-const DummyText = require("../../../../utils/DummyText");
 
 describe("AddTodoUseCase", () => {
   it("should orchestrating the add todo action correctly", async () => {

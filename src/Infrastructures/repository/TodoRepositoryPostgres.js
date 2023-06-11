@@ -89,6 +89,21 @@ class TodoRepositoryPostgres extends TodoRepository {
       throw new NotFoundError("todo tidak ditemukan");
     }
   }
+
+  async editTodoById({ todoId, title, content, status }) {
+    const query = {
+      text: `UPDATE notes SET title = $1, content = $2, status = $3 WHERE id = $4 RETURNING id`,
+      values: [title, content, status, todoId],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rowCount) {
+      throw new NotFoundError("todo tidak ditemukan");
+    }
+
+    return result.rows[0].id;
+  }
 }
 
 module.exports = TodoRepositoryPostgres;

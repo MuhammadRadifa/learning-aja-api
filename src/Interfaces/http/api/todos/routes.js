@@ -15,15 +15,14 @@ const routes = (handler) => [
       auth: "ambaajar_jwt",
     },
   },
-  // edit todo later
-  //   {
-  //     method: "PUT",
-  //     path: "/todos/{id}",
-  //     handler: handler.putTodoByIdHandler,
-  //     options: {
-  //       auth: "ambaajar_jwt",
-  //     },
-  //   },
+  {
+    method: "PUT",
+    path: "/todos/{todosId}",
+    handler: handler.putTodoByIdHandler,
+    options: {
+      auth: "ambaajar_jwt",
+    },
+  },
   {
     method: "DELETE",
     path: "/todos/{todosId}",

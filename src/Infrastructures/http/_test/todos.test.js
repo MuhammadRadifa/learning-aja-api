@@ -269,4 +269,82 @@ describe("/todos endpoint", () => {
       expect(responseJson2.message).toEqual("todo berhasil dihapus");
     });
   });
+
+  describe("when PUT /todos/{todosId}", () => {
+    it("should response 401 when not include access token", async () => {
+      // Actions
+      response = await server.inject({
+        method: "PUT",
+        url: "/todos/123",
+        payload: {},
+      });
+
+      // Assert
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(401);
+      expect(responseJson.error).toEqual("Unauthorized");
+      expect(responseJson.message).toEqual("Missing authentication");
+    });
+
+    it("should response 404 if todo not found", async () => {
+      responesAuth = JSON.parse(authentication.payload);
+      // Actions
+      response = await server.inject({
+        method: "PUT",
+        url: "/todos/xxx",
+        payload: {
+          title: "dicoding",
+          content: "dicoding",
+          status: "completed",
+        },
+        headers: {
+          Authorization: `Bearer ${responesAuth.data.accessToken}`,
+        },
+      });
+
+      // Assert
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(404);
+      expect(responseJson.status).toEqual("fail");
+      expect(responseJson.message).toEqual("todo tidak ditemukan");
+    });
+
+    it("should response 200 and update todo", async () => {
+      responesAuth = JSON.parse(authentication.payload);
+      // Actions
+      response = await server.inject({
+        method: "POST",
+        url: "/todos",
+        payload: {
+          title: "dicoding",
+          content: "dicoding",
+        },
+        headers: {
+          Authorization: `Bearer ${responesAuth.data.accessToken}`,
+        },
+      });
+
+      const responseJson = JSON.parse(response.payload);
+      const { id } = responseJson.data.addedTodo;
+
+      response = await server.inject({
+        method: "PUT",
+        url: `/todos/${id}`,
+        payload: {
+          title: "dicoding",
+          content: "dicoding",
+          status: "completed",
+        },
+        headers: {
+          Authorization: `Bearer ${responesAuth.data.accessToken}`,
+        },
+      });
+
+      // Assert
+      const responseJson2 = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson2.status).toEqual("success");
+      expect(responseJson2.message).toEqual("todo berhasil diperbarui");
+    });
+  });
 });

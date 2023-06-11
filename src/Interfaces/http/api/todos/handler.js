@@ -2,6 +2,7 @@ const { compareSync } = require("bcrypt");
 const AddTodoUseCase = require("../../../../Applications/use_case/AddTodoUseCase");
 const DeleteTodoUseCase = require("../../../../Applications/use_case/DeleteTodoUseCase");
 const DetailTodoUseCase = require("../../../../Applications/use_case/DetailTodoUseCase");
+const EditTodoUseCase = require("../../../../Applications/use_case/EditTodoUseCase");
 
 class TodosHandler {
   constructor(container) {
@@ -10,6 +11,7 @@ class TodosHandler {
     this.postTodoHandler = this.postTodoHandler.bind(this);
     this.getTodoByIdHandler = this.getTodoByIdHandler.bind(this);
     this.deleteTodoByIdHandler = this.deleteTodoByIdHandler.bind(this);
+    this.putTodoByIdHandler = this.putTodoByIdHandler.bind(this);
   }
 
   async postTodoHandler(request, h) {
@@ -30,7 +32,7 @@ class TodosHandler {
     return response;
   }
 
-  async getTodoByIdHandler(request, h) {
+  async getTodoByIdHandler(request) {
     const detailTodoUseCase = this._container.getInstance(
       DetailTodoUseCase.name
     );
@@ -48,7 +50,7 @@ class TodosHandler {
     };
   }
 
-  async deleteTodoByIdHandler(request, h) {
+  async deleteTodoByIdHandler(request) {
     const deleteTodoUseCase = this._container.getInstance(
       DeleteTodoUseCase.name
     );
@@ -60,6 +62,20 @@ class TodosHandler {
     return {
       status: "success",
       message: "todo berhasil dihapus",
+    };
+  }
+
+  async putTodoByIdHandler(request) {
+    const editTodoUseCase = this._container.getInstance(EditTodoUseCase.name);
+    const useCasePayload = {
+      ...request.payload,
+      todoId: request.params.todosId,
+      ownerId: request.auth.credentials.id,
+    };
+    await editTodoUseCase.execute(useCasePayload);
+    return {
+      status: "success",
+      message: "todo berhasil diperbarui",
     };
   }
 }

@@ -34,6 +34,7 @@ const RefreshAuthenticationUseCase = require("../Applications/use_case/RefreshAu
 const AddTodoUseCase = require("../Applications/use_case/AddTodoUseCase");
 const DetailTodoUseCase = require("../Applications/use_case/DetailTodoUseCase");
 const DeleteTodoUseCase = require("../Applications/use_case/DeleteTodoUseCase");
+const EditTodoUseCase = require("../Applications/use_case/EditTodoUseCase");
 
 // creating container
 const container = createContainer();
@@ -221,6 +222,19 @@ container.register([
   {
     key: DeleteTodoUseCase.name,
     Class: DeleteTodoUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "todoRepository",
+          internal: TodoRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: EditTodoUseCase.name,
+    Class: EditTodoUseCase,
     parameter: {
       injectType: "destructuring",
       dependencies: [

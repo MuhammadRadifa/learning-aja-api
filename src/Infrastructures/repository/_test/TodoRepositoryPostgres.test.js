@@ -182,5 +182,46 @@ describe("TodoRepositoryPostgres", () => {
         );
       });
     });
+
+    describe("editTodoById function", () => {
+      it("should throw NotFoundError when todo not found", async () => {
+        const todoRepositoryPostgres = new TodoRepositoryPostgres(pool, {});
+
+        await expect(
+          todoRepositoryPostgres.editTodoById("todo-123", {})
+        ).rejects.toThrowError(NotFoundError);
+      });
+
+      it("should edit todo correctly", async () => {
+        const todoRepositoryPostgres = new TodoRepositoryPostgres(pool, {});
+        const ownerId = "user-123";
+        await UsersTableTestHelper.addUser({ id: ownerId });
+        await TodoTableTestHelper.addNotes({
+          id: "todo-123",
+          title: "title",
+          content: "body",
+          ownerId,
+        });
+
+        await todoRepositoryPostgres.editTodoById({
+          todoId: "todo-123",
+          title: "title edit",
+          content: "body edit",
+          status: "completed",
+        });
+
+        const todos = await TodoTableTestHelper.findNotesById("todo-123");
+
+        expect(todos).toHaveLength(1);
+        expect(todos[0]).toStrictEqual({
+          id: "todo-123",
+          title: "title edit",
+          content: "body edit",
+          status: "completed",
+          createdAt: todos[0].createdAt,
+          ownerId,
+        });
+      });
+    });
   });
 });
