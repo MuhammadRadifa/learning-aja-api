@@ -1,17 +1,18 @@
 /* istanbul ignore file */
 const pool = require("../src/Infrastructures/database/postgres/pool");
 
-const UsersTableTestHelper = {
+const TodoTableTestHelper = {
   async addNotes({
     id = "note-123",
     title = "testnote",
     content = "testnote",
-    status = "Dicoding Indonesia",
+    status = "unfinished",
+    createdAt = new Date().toISOString(),
     ownerId = "user-123",
   }) {
     const query = {
-      text: "INSERT INTO notes VALUES($1, $2, $3, $4, $6)",
-      values: [id, title, content, status, ownerId],
+      text: "INSERT INTO notes VALUES($1, $2, $3, $4, $5, $6)",
+      values: [id, title, content, status, createdAt, ownerId],
     };
 
     await pool.query(query);
@@ -33,4 +34,4 @@ const UsersTableTestHelper = {
   },
 };
 
-module.exports = UsersTableTestHelper;
+module.exports = TodoTableTestHelper;
