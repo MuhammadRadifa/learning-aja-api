@@ -35,6 +35,7 @@ const AddTodoUseCase = require("../Applications/use_case/AddTodoUseCase");
 const DetailTodoUseCase = require("../Applications/use_case/DetailTodoUseCase");
 const DeleteTodoUseCase = require("../Applications/use_case/DeleteTodoUseCase");
 const EditTodoUseCase = require("../Applications/use_case/EditTodoUseCase");
+const GetUserTodosUseCase = require("../Applications/use_case/GetUserTodosUseCase");
 
 // creating container
 const container = createContainer();
@@ -235,6 +236,19 @@ container.register([
   {
     key: EditTodoUseCase.name,
     Class: EditTodoUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "todoRepository",
+          internal: TodoRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: GetUserTodosUseCase.name,
+    Class: GetUserTodosUseCase,
     parameter: {
       injectType: "destructuring",
       dependencies: [

@@ -41,5 +41,9 @@ describe("TodoRepository interface", () => {
         todoId: "abc",
       })
     ).rejects.toThrowError("TODO_REPOSITORY.METHOD_NOT_IMPLEMENTED");
+
+    await expect(todoRepository.getUserTodoList("abc")).rejects.toThrowError(
+      "TODO_REPOSITORY.METHOD_NOT_IMPLEMENTED"
+    );
   });
 });

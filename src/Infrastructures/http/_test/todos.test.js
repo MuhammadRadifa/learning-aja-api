@@ -347,4 +347,53 @@ describe("/todos endpoint", () => {
       expect(responseJson2.message).toEqual("todo berhasil diperbarui");
     });
   });
+
+  describe("when GET /users/todos", () => {
+    it("should response 401 when not include access token", async () => {
+      // Actions
+      response = await server.inject({
+        method: "GET",
+        url: "/users/todos",
+        payload: {},
+      });
+
+      // Assert
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(401);
+      expect(responseJson.error).toEqual("Unauthorized");
+      expect(responseJson.message).toEqual("Missing authentication");
+    });
+
+    it("should response 200 and return todos", async () => {
+      responesAuth = JSON.parse(authentication.payload);
+
+      // response = await server.inject({
+      //   method: "POST",
+      //   url: "/todos",
+      //   payload: {
+      //     title: "dicoding",
+      //     content: "secret123456",
+      //   },
+      //   headers: {
+      //     Authorization: `Bearer ${responesAuth.data.accessToken}`,
+      //   },
+      // });
+
+      // Actions
+      response = await server.inject({
+        method: "GET",
+        url: "/users/todos",
+        payload: {},
+        headers: {
+          Authorization: `Bearer ${responesAuth.data.accessToken}`,
+        },
+      });
+
+      // Assert
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.status).toEqual("success");
+      expect(responseJson.data.todos).toBeDefined();
+    });
+  });
 });

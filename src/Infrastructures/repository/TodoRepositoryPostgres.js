@@ -104,6 +104,17 @@ class TodoRepositoryPostgres extends TodoRepository {
 
     return result.rows[0].id;
   }
+
+  async getUserTodoList(userId) {
+    const query = {
+      text: `SELECT notes.id, title, content, status, "createdAt", "ownerId" FROM notes INNER JOIN users ON notes."ownerId" = users.id WHERE users.id = $1`,
+      values: [userId],
+    };
+
+    const result = await this._pool.query(query);
+
+    return result.rows;
+  }
 }
 
 module.exports = TodoRepositoryPostgres;

@@ -82,6 +82,8 @@ describe("TodoRepositoryPostgres", () => {
             id: "todo-123",
             title: "title",
             content: "body",
+            status: todo.status,
+            createdAt: todo.createdAt,
             ownerId,
           })
         );
@@ -221,6 +223,51 @@ describe("TodoRepositoryPostgres", () => {
           createdAt: todos[0].createdAt,
           ownerId,
         });
+      });
+    });
+
+    describe("getTodos function", () => {
+      it("should return todos correctly", async () => {
+        const ownerId = "user-123";
+        await UsersTableTestHelper.addUser({ id: ownerId });
+        await TodoTableTestHelper.addNotes({
+          id: "todo-123",
+          title: "title",
+          content: "body",
+          ownerId,
+        });
+
+        await TodoTableTestHelper.addNotes({
+          id: "todo-456",
+          title: "title",
+          content: "body",
+          ownerId,
+        });
+
+        const todoRepositoryPostgres = new TodoRepositoryPostgres(pool, {});
+
+        const todos = await todoRepositoryPostgres.getUserTodoList(ownerId);
+
+        const expectedTodos = [
+          {
+            id: "todo-123",
+            title: "title",
+            content: "body",
+            status: todos[0].status,
+            createdAt: todos[0].createdAt,
+            ownerId,
+          },
+          {
+            id: "todo-456",
+            title: "title",
+            content: "body",
+            status: todos[1].status,
+            createdAt: todos[1].createdAt,
+            ownerId,
+          },
+        ];
+
+        expect(todos).toStrictEqual(expectedTodos);
       });
     });
   });

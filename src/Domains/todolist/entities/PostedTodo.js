@@ -1,10 +1,12 @@
 class PostedTodo {
   constructor(payload) {
     this._verifyPayload(payload);
-    const { id, title, content, ownerId } = payload;
+    const { id, title, content, status, createdAt, ownerId } = payload;
     this.id = id;
     this.title = title;
     this.content = content;
+    this.status = status;
+    this.createdAt = createdAt;
     this.ownerId = ownerId;
   }
 

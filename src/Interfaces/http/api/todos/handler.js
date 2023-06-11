@@ -1,8 +1,8 @@
-const { compareSync } = require("bcrypt");
 const AddTodoUseCase = require("../../../../Applications/use_case/AddTodoUseCase");
 const DeleteTodoUseCase = require("../../../../Applications/use_case/DeleteTodoUseCase");
 const DetailTodoUseCase = require("../../../../Applications/use_case/DetailTodoUseCase");
 const EditTodoUseCase = require("../../../../Applications/use_case/EditTodoUseCase");
+const GetUserTodosUseCase = require("../../../../Applications/use_case/GetUserTodosUseCase");
 
 class TodosHandler {
   constructor(container) {
@@ -12,6 +12,7 @@ class TodosHandler {
     this.getTodoByIdHandler = this.getTodoByIdHandler.bind(this);
     this.deleteTodoByIdHandler = this.deleteTodoByIdHandler.bind(this);
     this.putTodoByIdHandler = this.putTodoByIdHandler.bind(this);
+    this.getUserTodosHandler = this.getUserTodosHandler.bind(this);
   }
 
   async postTodoHandler(request, h) {
@@ -76,6 +77,23 @@ class TodosHandler {
     return {
       status: "success",
       message: "todo berhasil diperbarui",
+    };
+  }
+
+  async getUserTodosHandler(request) {
+    const getTodosUseCase = this._container.getInstance(
+      GetUserTodosUseCase.name
+    );
+    const { id: userId } = request.auth.credentials;
+    const useCasePayload = {
+      userId,
+    };
+    const todos = await getTodosUseCase.execute(useCasePayload);
+    return {
+      status: "success",
+      data: {
+        todos,
+      },
     };
   }
 }

@@ -16,6 +16,14 @@ const routes = (handler) => [
     },
   },
   {
+    method: "GET",
+    path: "/users/todos",
+    handler: handler.getUserTodosHandler,
+    options: {
+      auth: "ambaajar_jwt",
+    },
+  },
+  {
     method: "PUT",
     path: "/todos/{todosId}",
     handler: handler.putTodoByIdHandler,
