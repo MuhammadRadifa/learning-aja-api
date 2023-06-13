@@ -1,40 +1,40 @@
 const routes = (handler) => [
   {
     method: "POST",
-    path: "/todos",
-    handler: handler.postTodoHandler,
+    path: "/schedule",
+    handler: handler.postScheduleHandler,
     options: {
       auth: "learningaja_jwt",
     },
   },
   {
     method: "GET",
-    path: "/todos/{todosId}",
-    handler: handler.getTodoByIdHandler,
+    path: "/schedule/{scheduleId}",
+    handler: handler.getScheduleByIdHandler,
     options: {
       auth: "learningaja_jwt",
     },
   },
   {
     method: "GET",
-    path: "/users/todos",
-    handler: handler.getUserTodosHandler,
+    path: "/users/schedule",
+    handler: handler.getUserScheduleHandler,
     options: {
       auth: "learningaja_jwt",
     },
   },
   {
     method: "PUT",
-    path: "/todos/{todosId}",
-    handler: handler.putTodoByIdHandler,
+    path: "/schedule/{scheduleId}",
+    handler: handler.putScheduleByIdHandler,
     options: {
       auth: "learningaja_jwt",
     },
   },
   {
     method: "DELETE",
-    path: "/todos/{todosId}",
-    handler: handler.deleteTodoByIdHandler,
+    path: "/schedule/{scheduleId}",
+    handler: handler.deleteScheduleByIdHandler,
     options: {
       auth: "learningaja_jwt",
     },
