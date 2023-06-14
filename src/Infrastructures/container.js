@@ -1,5 +1,4 @@
 /* istanbul ignore file */
-
 const { createContainer } = require("instances-container");
 
 // external agency
@@ -19,6 +18,9 @@ const AuthenticationRepositoryPostgres = require("./repository/AuthenticationRep
 const TodoRepository = require("../Domains/todolist/TodoRepository");
 const TodoRepositoryPostgres = require("./repository/TodoRepositoryPostgres");
 
+const ScheduleRepository = require("../Domains/schedule/ScheduleRepository");
+const ScheduleRepositoryPostgres = require("./repository/ScheduleRepositoryPostgres");
+
 const JwtTokenManager = require("./security/JwtTokenManager");
 const BcryptPasswordHash = require("./security/BcryptPasswordHash");
 const JoiInputValidator = require("./security/JoiInputValidator");
@@ -31,11 +33,20 @@ const InputValidator = require("../Applications/security/InputValidator");
 const LoginUserUseCase = require("../Applications/use_case/LoginUserUseCase");
 const LogoutUserUseCase = require("../Applications/use_case/LogoutUserUseCase");
 const RefreshAuthenticationUseCase = require("../Applications/use_case/RefreshAuthenticationUseCase");
+
+// Todo Use Case
 const AddTodoUseCase = require("../Applications/use_case/AddTodoUseCase");
 const DetailTodoUseCase = require("../Applications/use_case/DetailTodoUseCase");
 const DeleteTodoUseCase = require("../Applications/use_case/DeleteTodoUseCase");
 const EditTodoUseCase = require("../Applications/use_case/EditTodoUseCase");
 const GetUserTodosUseCase = require("../Applications/use_case/GetUserTodosUseCase");
+
+// Schedule Use Case
+const AddScheduleUseCase = require("../Applications/use_case/AddScheduleUseCase");
+const DetailScheduleUseCase = require("../Applications/use_case/DetailScheduleUseCase");
+const DeleteScheduleUseCase = require("../Applications/use_case/DeleteScheduleUseCase");
+const EditScheduleUseCase = require("../Applications/use_case/EditScheduleUseCase");
+const GetUserScheduleUseCase = require("../Applications/use_case/GetUserScheduleUseCase");
 
 // creating container
 const container = createContainer();
@@ -103,6 +114,20 @@ container.register([
   {
     key: TodoRepository.name,
     Class: TodoRepositoryPostgres,
+    parameter: {
+      dependencies: [
+        {
+          concrete: pool,
+        },
+        {
+          concrete: nanoid,
+        },
+      ],
+    },
+  },
+  {
+    key: ScheduleRepository.name,
+    Class: ScheduleRepositoryPostgres,
     parameter: {
       dependencies: [
         {
@@ -255,6 +280,71 @@ container.register([
         {
           name: "todoRepository",
           internal: TodoRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: AddScheduleUseCase.name,
+    Class: AddScheduleUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "scheduleRepository",
+          internal: ScheduleRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: DetailScheduleUseCase.name,
+    Class: DetailScheduleUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "scheduleRepository",
+          internal: ScheduleRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: DeleteScheduleUseCase.name,
+    Class: DeleteScheduleUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "scheduleRepository",
+          internal: ScheduleRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: EditScheduleUseCase.name,
+    Class: EditScheduleUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "scheduleRepository",
+          internal: ScheduleRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: GetUserScheduleUseCase.name,
+    Class: GetUserScheduleUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "scheduleRepository",
+          internal: ScheduleRepository.name,
         },
       ],
     },

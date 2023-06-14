@@ -79,10 +79,19 @@ DomainErrorTranslator._directories = {
     "tidak dapat menghapus todo karena tipe data tidak sesuai"
   ),
   "POST_SCHEDULE.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
-    "tidak dapat menambahkan jadwal baru karena properti yang dibutuhkan tidak ada"
+    "tidak dapat membuat jadwal baru karena properti yang dibutuhkan tidak ada"
   ),
   "POST_SCHEDULE.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
     "tidak dapat membuat jadwal baru karena tipe data tidak sesuai"
+  ),
+  "POST_SCHEDULE.TITLE_LIMIT_CHAR": new InvariantError(
+    "tidak dapat membuat jadwal baru karena karakter title melebihi batas limit"
+  ),
+  "POST_SCHEDULE.LECTURER_LIMIT_CHAR": new InvariantError(
+    "tidak dapat membuat jadwal baru karena karakter lecturer melebihi batas limit"
+  ),
+  "POST_SCHEDULE.ROOM_LIMIT_CHAR": new InvariantError(
+    "tidak dapat membuat jadwal baru karena karakter room melebihi batas limit"
   ),
   "POSTED_SCHEDULE.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
     "tidak dapat membuat jadwal baru karena properti yang dibutuhkan tidak ada"
@@ -91,7 +100,7 @@ DomainErrorTranslator._directories = {
     "tidak dapat membuat jadwal baru karena tipe data tidak sesuai"
   ),
   "POSTED_SCHEDULE.TITLE_LIMIT_CHAR": new InvariantError(
-    "tidak dapat membuat user baru karena karakter username melebihi batas limit"
+    "tidak dapat membuat jadwal baru karena karakter title melebihi batas limit"
   ),
   "ADDED_SCHEDULE.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
     "tidak dapat membuat jadwal baru karena properti yang dibutuhkan tidak ada"

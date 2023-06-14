@@ -5,6 +5,7 @@ const DomainErrorTranslator = require("../../Commons/Exceptions/DomainErrorTrans
 const users = require("../../Interfaces/http/api/users");
 const authentications = require("../../Interfaces/http/api/authentications");
 const todos = require("../../Interfaces/http/api/todos");
+const schedules = require("../../Interfaces/http/api/schedule");
 
 const createServer = async (container) => {
   const server = Hapi.server({
@@ -18,7 +19,7 @@ const createServer = async (container) => {
     },
   ]);
 
-  server.auth.strategy("ambaajar_jwt", "jwt", {
+  server.auth.strategy("learningaja_jwt", "jwt", {
     keys: process.env.ACCESS_TOKEN_KEY,
     verify: {
       aud: false,
@@ -45,6 +46,10 @@ const createServer = async (container) => {
     },
     {
       plugin: todos,
+      options: { container },
+    },
+    {
+      plugin: schedules,
       options: { container },
     },
   ]);
