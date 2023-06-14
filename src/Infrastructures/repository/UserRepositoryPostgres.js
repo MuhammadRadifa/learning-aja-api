@@ -109,6 +109,16 @@ class UserRepositoryPostgres extends UserRepository {
       throw new InvariantError("email tidak tersedia");
     }
   }
+
+  async getUserList() {
+    const query = {
+      text: "SELECT id, username, fullname FROM users",
+    };
+
+    const result = await this._pool.query(query);
+
+    return result.rows;
+  }
 }
 
 module.exports = UserRepositoryPostgres;

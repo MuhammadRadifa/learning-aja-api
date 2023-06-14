@@ -28,6 +28,7 @@ const JoiInputValidator = require("./security/JoiInputValidator");
 // use case
 const AuthenticationTokenManager = require("../Applications/security/AuthenticationTokenManager");
 const AddUserUseCase = require("../Applications/use_case/AddUserUseCase");
+const GetUserListUseCase = require("../Applications/use_case/GetUserListUseCase");
 const PasswordHash = require("../Applications/security/PasswordHash");
 const InputValidator = require("../Applications/security/InputValidator");
 const LoginUserUseCase = require("../Applications/use_case/LoginUserUseCase");
@@ -160,6 +161,19 @@ container.register([
         {
           name: "inputValidator",
           internal: InputValidator.name,
+        },
+      ],
+    },
+  },
+  {
+    key: GetUserListUseCase.name,
+    Class: GetUserListUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "userRepository",
+          internal: UserRepository.name,
         },
       ],
     },

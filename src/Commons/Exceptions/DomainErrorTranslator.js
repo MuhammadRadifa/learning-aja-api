@@ -108,6 +108,12 @@ DomainErrorTranslator._directories = {
   "ADDED_SCHEDULE.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
     "tidak dapat membuat jadwal baru karena tipe data tidak sesuai"
   ),
+  "GET_USER.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
+    "tidak dapat menampilkan user karena properti yang dibutuhkan tidak ada"
+  ),
+  "GET_USER.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
+    "tidak dapat menampilkan user karena tipe data tidak sesuai"
+  ),
 };
 
 module.exports = DomainErrorTranslator;
