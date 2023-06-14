@@ -28,6 +28,7 @@ class ScheduleHandler {
 
     const response = h.response({
       status: "success",
+      message: "jadwal berhasil ditambahkan",
       data: {
         addedSchedule,
       },
@@ -59,13 +60,14 @@ class ScheduleHandler {
       DeleteScheduleUseCase.name
     );
     const useCasePayload = {
-      id: request.params.scheduleId,
+      scheduleId: request.params.scheduleId,
       ownerId: request.auth.credentials.id,
     };
 
     await deleteScheduleUseCase.execute(useCasePayload);
     return {
       status: "success",
+      message: "jadwal berhasil dihapus",
     };
   }
 
@@ -82,6 +84,7 @@ class ScheduleHandler {
     await editScheduleUseCase.execute(useCasePayload);
     return {
       status: "success",
+      message: "jadwal berhasil diperbarui",
     };
   }
 
@@ -91,7 +94,7 @@ class ScheduleHandler {
     );
     const { id: credentialId } = request.auth.credentials;
     const useCasePayload = {
-      ownerId: credentialId,
+      userId: credentialId,
     };
 
     const schedule = await getUserScheduleUseCase.execute(useCasePayload);

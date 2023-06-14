@@ -367,17 +367,17 @@ describe("/todos endpoint", () => {
     it("should response 200 and return todos", async () => {
       responesAuth = JSON.parse(authentication.payload);
 
-      // response = await server.inject({
-      //   method: "POST",
-      //   url: "/todos",
-      //   payload: {
-      //     title: "dicoding",
-      //     content: "secret123456",
-      //   },
-      //   headers: {
-      //     Authorization: `Bearer ${responesAuth.data.accessToken}`,
-      //   },
-      // });
+      response = await server.inject({
+        method: "POST",
+        url: "/todos",
+        payload: {
+          title: "dicoding",
+          content: "secret123456",
+        },
+        headers: {
+          Authorization: `Bearer ${responesAuth.data.accessToken}`,
+        },
+      });
 
       // Actions
       response = await server.inject({

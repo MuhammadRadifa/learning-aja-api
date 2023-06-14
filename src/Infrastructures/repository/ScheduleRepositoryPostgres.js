@@ -43,7 +43,7 @@ class ScheduleRepositoryPostgres extends ScheduleRepository {
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      throw new NotFoundError("schedule tidak ditemukan");
+      throw new NotFoundError("jadwal tidak ditemukan");
     }
 
     return result.rows.map((row) => new PostedSchedule({ ...row }))[0];
@@ -71,7 +71,7 @@ class ScheduleRepositoryPostgres extends ScheduleRepository {
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      throw new NotFoundError("schedule tidak ditemukan");
+      throw new NotFoundError("jadwal tidak ditemukan");
     }
   }
 
@@ -84,7 +84,7 @@ class ScheduleRepositoryPostgres extends ScheduleRepository {
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      throw new NotFoundError("schedule tidak ditemukan");
+      throw new NotFoundError("jadwal tidak ditemukan");
     }
 
     return result.rows.map((row) => new PostedSchedule({ ...row }))[0];
@@ -107,7 +107,7 @@ class ScheduleRepositoryPostgres extends ScheduleRepository {
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      throw new NotFoundError("schedule tidak ditemukan");
+      throw new NotFoundError("jadwal tidak ditemukan");
     }
 
     return new PostedSchedule({
@@ -135,7 +135,7 @@ class ScheduleRepositoryPostgres extends ScheduleRepository {
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      throw new NotFoundError("schedule tidak ditemukan");
+      throw new NotFoundError("jadwal tidak ditemukan");
     }
   }
 }
