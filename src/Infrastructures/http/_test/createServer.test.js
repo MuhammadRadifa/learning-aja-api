@@ -211,10 +211,6 @@ describe("HTTP server", () => {
 
       // Assert
       const responseJson = JSON.parse(response.payload);
-      console.log(
-        "🚀 ~ file: createServer.test.js:214 ~ it ~ responseJson:",
-        responseJson
-      );
       expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual("success");
       expect(responseJson.data.users).toBeDefined();
