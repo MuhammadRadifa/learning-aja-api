@@ -27,5 +27,8 @@ describe("UserRepository interface", () => {
     await expect(userRepository.getIdByEmail("")).rejects.toThrowError(
       "USER_REPOSITORY.METHOD_NOT_IMPLEMENTED"
     );
+    await expect(userRepository.getUserList()).rejects.toThrowError(
+      "USER_REPOSITORY.METHOD_NOT_IMPLEMENTED"
+    );
   });
 });

@@ -208,4 +208,27 @@ describe("UserRepositoryPostgres", () => {
       ).resolves.not.toThrowError(InvariantError);
     });
   });
+
+  describe("getUserList", () => {
+    it("should return user list correctly", async () => {
+      // Arrange
+      const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
+      await UsersTableTestHelper.addUser({
+        id: "user-123",
+        username: "dicoding",
+        fullname: "Dicoding Indonesia",
+      });
+
+      // Action
+      const userList = await userRepositoryPostgres.getUserList();
+
+      // Assert
+      expect(userList).toHaveLength(1);
+      expect(userList[0]).toStrictEqual({
+        id: "user-123",
+        username: "dicoding",
+        fullname: "Dicoding Indonesia",
+      });
+    });
+  });
 });

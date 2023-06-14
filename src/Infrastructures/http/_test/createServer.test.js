@@ -198,6 +198,25 @@ describe("HTTP server", () => {
     });
   });
 
+  describe("when GET /users", () => {
+    it("should response 200 and return all users", async () => {
+      // Arrange
+      const server = await createServer(container);
+
+      // Action
+      const response = await server.inject({
+        method: "GET",
+        url: "/users",
+      });
+
+      // Assert
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.status).toEqual("success");
+      expect(responseJson.data.users).toBeDefined();
+    });
+  });
+
   describe("when POST /authentications", () => {
     it("should response 400 if username not found", async () => {
       // Arrange
