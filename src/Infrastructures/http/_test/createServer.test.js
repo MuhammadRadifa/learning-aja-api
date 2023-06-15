@@ -217,6 +217,53 @@ describe("HTTP server", () => {
     });
   });
 
+  describe("when GET /users/me", () => {
+    it("should response 200 and return authenticated user", async () => {
+      // Arrange
+      const requestPayload = {
+        email: "dicoding@gmail.com",
+        username: "dicoding",
+        password: "secret123",
+        fullname: "Dicoding Indonesia",
+      };
+
+      const server = await createServer(container);
+
+      // Action
+      await server.inject({
+        method: "POST",
+        url: "/users",
+        payload: requestPayload,
+      });
+
+      const responseAuth = await server.inject({
+        method: "POST",
+        url: "/authentications",
+        payload: {
+          email: "dicoding@gmail.com",
+          password: "secret123",
+        },
+      });
+
+      const responseAuthJson = JSON.parse(responseAuth.payload);
+      const { accessToken } = responseAuthJson.data;
+
+      const response = await server.inject({
+        method: "GET",
+        url: "/users/me",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      // Assert
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.status).toEqual("success");
+      expect(responseJson.data.userProfile).toBeDefined();
+    });
+  });
+
   describe("when POST /authentications", () => {
     it("should response 400 if username not found", async () => {
       // Arrange

@@ -231,4 +231,38 @@ describe("UserRepositoryPostgres", () => {
       });
     });
   });
+
+  describe("getOwnUserProfile", () => {
+    it("should throw InvariantError when user not found", () => {
+      // Arrange
+      const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
+
+      // Action & Assert
+      return expect(
+        userRepositoryPostgres.getOwnUserProfile("user-123")
+      ).rejects.toThrowError(InvariantError);
+    });
+
+    it("should return user profile correctly", async () => {
+      // Arrange
+      const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
+      await UsersTableTestHelper.addUser({
+        id: "user-123",
+        username: "dicoding",
+        fullname: "Dicoding Indonesia",
+      });
+
+      // Action
+      const userProfile = await userRepositoryPostgres.getOwnUserProfile(
+        "user-123"
+      );
+
+      // Assert
+      expect(userProfile).toStrictEqual({
+        id: "user-123",
+        username: "dicoding",
+        fullname: "Dicoding Indonesia",
+      });
+    });
+  });
 });
