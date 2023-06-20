@@ -21,6 +21,9 @@ const TodoRepositoryPostgres = require("./repository/TodoRepositoryPostgres");
 const ScheduleRepository = require("../Domains/schedule/ScheduleRepository");
 const ScheduleRepositoryPostgres = require("./repository/ScheduleRepositoryPostgres");
 
+const MeetingRepository = require("../Domains/meeting/MeetingRepository");
+const MeetingRepositoryPostgres = require("./repository/MeetingRepositoryPostgres");
+
 const JwtTokenManager = require("./security/JwtTokenManager");
 const BcryptPasswordHash = require("./security/BcryptPasswordHash");
 const JoiInputValidator = require("./security/JoiInputValidator");
@@ -51,6 +54,13 @@ const DetailScheduleUseCase = require("../Applications/use_case/DetailScheduleUs
 const DeleteScheduleUseCase = require("../Applications/use_case/DeleteScheduleUseCase");
 const EditScheduleUseCase = require("../Applications/use_case/EditScheduleUseCase");
 const GetUserScheduleUseCase = require("../Applications/use_case/GetUserScheduleUseCase");
+
+// Meeting Use Case
+const AddMeetingUseCase = require("../Applications/use_case/AddMeetingUseCase");
+const GetMeetingDetailUseCase = require("../Applications/use_case/GetMeetingDetailUseCase");
+const GetMeetingUseCase = require("../Applications/use_case/GetMeetingUseCase");
+const GetUserMeetingUseCase = require("../Applications/use_case/GetUserMeetingUseCase");
+const DeleteMeetingUseCase = require("../Applications/use_case/DeleteMeetingUseCase");
 
 // creating container
 const container = createContainer();
@@ -132,6 +142,20 @@ container.register([
   {
     key: ScheduleRepository.name,
     Class: ScheduleRepositoryPostgres,
+    parameter: {
+      dependencies: [
+        {
+          concrete: pool,
+        },
+        {
+          concrete: nanoid,
+        },
+      ],
+    },
+  },
+  {
+    key: MeetingRepository.name,
+    Class: MeetingRepositoryPostgres,
     parameter: {
       dependencies: [
         {
@@ -375,6 +399,71 @@ container.register([
         {
           name: "scheduleRepository",
           internal: ScheduleRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: AddMeetingUseCase.name,
+    Class: AddMeetingUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "meetingRepository",
+          internal: MeetingRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: GetMeetingDetailUseCase.name,
+    Class: GetMeetingDetailUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "meetingRepository",
+          internal: MeetingRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: GetMeetingUseCase.name,
+    Class: GetMeetingUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "meetingRepository",
+          internal: MeetingRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: GetUserMeetingUseCase.name,
+    Class: GetUserMeetingUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "meetingRepository",
+          internal: MeetingRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: DeleteMeetingUseCase.name,
+    Class: DeleteMeetingUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "meetingRepository",
+          internal: MeetingRepository.name,
         },
       ],
     },

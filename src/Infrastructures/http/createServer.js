@@ -1,12 +1,23 @@
 const Hapi = require("@hapi/hapi");
 const Jwt = require("@hapi/jwt");
+const io = require("socket.io");
+
+// Socket IO
+const meetingSocket = require("../socket/meeting");
+
+// Import domain
 const ClientError = require("../../Commons/Exceptions/ClientError");
 const DomainErrorTranslator = require("../../Commons/Exceptions/DomainErrorTranslator");
+
+// Interfaces - HTTP
 const users = require("../../Interfaces/http/api/users");
 const authentications = require("../../Interfaces/http/api/authentications");
 const todos = require("../../Interfaces/http/api/todos");
 const schedules = require("../../Interfaces/http/api/schedule");
+const chat = require("../../Interfaces/http/api/chat");
+const meeting = require("../../Interfaces/http/api/meeting");
 
+// let chatUsers = [];
 const createServer = async (container) => {
   const server = Hapi.server({
     host: process.env.HOST,
@@ -16,6 +27,16 @@ const createServer = async (container) => {
         origin: ["*"],
       },
     },
+  });
+
+  const socketIO = io(server.listener, {
+    cors: {
+      origin: "*",
+    },
+  });
+
+  socketIO.on("connection", (socket) => {
+    meetingSocket(socket);
   });
 
   await server.register([
@@ -55,6 +76,14 @@ const createServer = async (container) => {
     },
     {
       plugin: schedules,
+      options: { container },
+    },
+    {
+      plugin: chat,
+      options: { container },
+    },
+    {
+      plugin: meeting,
       options: { container },
     },
   ]);

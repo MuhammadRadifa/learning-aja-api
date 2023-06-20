@@ -114,6 +114,18 @@ DomainErrorTranslator._directories = {
   "GET_USER.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
     "tidak dapat menampilkan user karena tipe data tidak sesuai"
   ),
+  "POST_MEETING.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
+    "tidak dapat membuat meeting baru karena tipe data tidak sesuai"
+  ),
+  "POST_MEETING.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
+    "tidak dapat membuat meeting baru karena properti yang dibutuhkan tidak ada"
+  ),
+  "POSTED_MEETING.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
+    "tidak dapat membuat meeting baru karena properti yang dibutuhkan tidak ada"
+  ),
+  "POSTED_MEETING.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
+    "tidak dapat membuat meeting baru karena tipe data tidak sesuai"
+  ),
 };
 
 module.exports = DomainErrorTranslator;
