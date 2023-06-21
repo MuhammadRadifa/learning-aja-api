@@ -4,9 +4,9 @@ class GetMeetingDetailUseCase {
   }
 
   async execute(useCasePayload) {
-    const { id } = useCasePayload;
-    await this._meetingRepository.checkAvailablitiyMeeting(id);
-    return this._meetingRepository.getMeetingById(id);
+    const { meetingId } = useCasePayload;
+    await this._meetingRepository.checkAvailablitiyMeeting(meetingId);
+    return this._meetingRepository.getMeetingById(meetingId);
   }
 }
 

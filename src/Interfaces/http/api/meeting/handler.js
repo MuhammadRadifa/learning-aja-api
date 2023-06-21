@@ -9,7 +9,6 @@ class MeetingHandler {
     this._container = container;
 
     this.postMeetingHandler = this.postMeetingHandler.bind(this);
-    this.getMeetingsHandler = this.getMeetingsHandler.bind(this);
     this.getMeetingByIdHandler = this.getMeetingByIdHandler.bind(this);
     this.deleteMeetingByIdHandler = this.deleteMeetingByIdHandler.bind(this);
     this.getUsersMeetingHandler = this.getUsersMeetingHandler.bind(this);
@@ -38,20 +37,6 @@ class MeetingHandler {
     return response;
   }
 
-  async getMeetingsHandler() {
-    const getMeetingsUseCase = this._container.getInstance(
-      GetMeetingUseCase.name
-    );
-    const meetings = await getMeetingsUseCase.execute();
-
-    return {
-      status: "success",
-      data: {
-        meetings,
-      },
-    };
-  }
-
   async getMeetingByIdHandler(request) {
     const getMeetingDetailUseCase = this._container.getInstance(
       GetMeetingDetailUseCase.name
@@ -59,7 +44,7 @@ class MeetingHandler {
     const { id: credentialId } = request.auth.credentials;
     const useCasePayload = {
       ...request.params,
-      userId: credentialId,
+      ownerId: credentialId,
     };
 
     const meeting = await getMeetingDetailUseCase.execute(useCasePayload);
@@ -79,14 +64,14 @@ class MeetingHandler {
     const { id: credentialId } = request.auth.credentials;
     const useCasePayload = {
       ...request.params,
-      userId: credentialId,
+      ownerId: credentialId,
     };
 
     await deleteMeetingUseCase.execute(useCasePayload);
 
     return {
       status: "success",
-      message: "Meeting berhasil dihapus",
+      message: "meeting berhasil dihapus",
     };
   }
 
@@ -100,12 +85,12 @@ class MeetingHandler {
       userId: credentialId,
     };
 
-    const participants = await getUserMeetingUseCase.execute(useCasePayload);
+    const meetings = await getUserMeetingUseCase.execute(useCasePayload);
 
     return {
       status: "success",
       data: {
-        participants,
+        meetings,
       },
     };
   }

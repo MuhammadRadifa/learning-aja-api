@@ -4,7 +4,7 @@ class DeleteMeetingUseCase {
   }
 
   async execute(useCasePayload) {
-    const { id: meetingId, ownerId } = useCasePayload;
+    const { meetingId, ownerId } = useCasePayload;
     await this._meetingRepository.checkAvailablitiyMeeting(meetingId);
     await this._meetingRepository.verifyMeetingOwner(meetingId, ownerId);
     await this._meetingRepository.deleteMeeting(meetingId);

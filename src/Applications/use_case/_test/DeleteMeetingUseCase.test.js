@@ -4,7 +4,7 @@ const DeleteMeetingUseCase = require("../DeleteMeetingUseCase");
 describe("DeleteMeetingUseCase", () => {
   it("should orchestrating the delete meeting action correctly", async () => {
     const useCasePayload = {
-      id: "meeting-123",
+      meetingId: "meeting-123",
       ownerId: "user-123",
     };
 
@@ -24,16 +24,16 @@ describe("DeleteMeetingUseCase", () => {
     await deleteMeetingUseCase.execute(useCasePayload);
 
     expect(mockMeetingRepository.checkAvailablitiyMeeting).toBeCalledWith(
-      useCasePayload.id
+      useCasePayload.meetingId
     );
 
     expect(mockMeetingRepository.verifyMeetingOwner).toBeCalledWith(
-      useCasePayload.id,
+      useCasePayload.meetingId,
       useCasePayload.ownerId
     );
 
     expect(mockMeetingRepository.deleteMeeting).toBeCalledWith(
-      useCasePayload.id
+      useCasePayload.meetingId
     );
   });
 });

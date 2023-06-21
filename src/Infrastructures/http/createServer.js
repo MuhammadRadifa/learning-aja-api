@@ -17,7 +17,6 @@ const schedules = require("../../Interfaces/http/api/schedule");
 const chat = require("../../Interfaces/http/api/chat");
 const meeting = require("../../Interfaces/http/api/meeting");
 
-// let chatUsers = [];
 const createServer = async (container) => {
   const server = Hapi.server({
     host: process.env.HOST,
@@ -35,6 +34,7 @@ const createServer = async (container) => {
     },
   });
 
+  /* istanbul ignore next */
   socketIO.on("connection", (socket) => {
     meetingSocket(socket);
   });

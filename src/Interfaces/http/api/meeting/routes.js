@@ -9,14 +9,6 @@ const routes = (handler) => [
   },
   {
     method: "GET",
-    path: "/meetings",
-    handler: handler.getMeetingsHandler,
-    options: {
-      auth: "learningaja_jwt",
-    },
-  },
-  {
-    method: "GET",
     path: "/meetings/{meetingId}",
     handler: handler.getMeetingByIdHandler,
     options: {
@@ -25,7 +17,7 @@ const routes = (handler) => [
   },
   {
     method: "GET",
-    path: "/meetings/me",
+    path: "/users/meetings",
     handler: handler.getUsersMeetingHandler,
     options: {
       auth: "learningaja_jwt",
