@@ -33,5 +33,8 @@ describe("UserRepository interface", () => {
     await expect(userRepository.getOwnUserProfile("")).rejects.toThrowError(
       "USER_REPOSITORY.METHOD_NOT_IMPLEMENTED"
     );
+    await expect(userRepository.verifyAvailableUser("")).rejects.toThrowError(
+      "USER_REPOSITORY.METHOD_NOT_IMPLEMENTED"
+    );
   });
 });

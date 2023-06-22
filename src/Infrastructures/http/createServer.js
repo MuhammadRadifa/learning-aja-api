@@ -14,7 +14,7 @@ const users = require("../../Interfaces/http/api/users");
 const authentications = require("../../Interfaces/http/api/authentications");
 const todos = require("../../Interfaces/http/api/todos");
 const schedules = require("../../Interfaces/http/api/schedule");
-const chat = require("../../Interfaces/http/api/chat");
+const friend = require("../../Interfaces/http/api/friend");
 const meeting = require("../../Interfaces/http/api/meeting");
 
 const createServer = async (container) => {
@@ -79,7 +79,7 @@ const createServer = async (container) => {
       options: { container },
     },
     {
-      plugin: chat,
+      plugin: friend,
       options: { container },
     },
     {

@@ -34,6 +34,10 @@ class UserRepository {
   async getOwnUserProfile(id) {
     throw new Error("USER_REPOSITORY.METHOD_NOT_IMPLEMENTED");
   }
+
+  async verifyAvailableUser(id) {
+    throw new Error("USER_REPOSITORY.METHOD_NOT_IMPLEMENTED");
+  }
 }
 
 module.exports = UserRepository;
