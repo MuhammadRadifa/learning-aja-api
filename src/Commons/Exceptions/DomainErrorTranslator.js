@@ -1,4 +1,4 @@
-const InvariantError = require("./invariantError");
+const InvariantError = require("./InvariantError");
 
 const DomainErrorTranslator = {
   translate(error) {
