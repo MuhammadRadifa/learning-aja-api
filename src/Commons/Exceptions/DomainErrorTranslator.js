@@ -1,4 +1,4 @@
-const InvariantError = require("./invariantError");
+const InvariantError = require("./InvariantError");
 
 const DomainErrorTranslator = {
   translate(error) {
@@ -126,6 +126,78 @@ DomainErrorTranslator._directories = {
   "POSTED_MEETING.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
     "tidak dapat membuat meeting baru karena tipe data tidak sesuai"
   ),
+  "POST_FRIEND.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
+    "tidak dapat menambahkan teman karena properti yang dibutuhkan tidak ada"
+  ),
+  "POST_FRIEND.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
+    "tidak dapat menambahkan teman karena tipe data tidak sesuai"
+  ),
+  "POSTED_FRIEND.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
+    "tidak dapat menambahkan teman karena properti yang dibutuhkan tidak ada"
+  ),
+  "POSTED_FRIEND.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
+    "tidak dapat menambahkan teman karena tipe data tidak sesuai"
+  ),
+  "ACCEPT_FRIEND_USE_CASE.NOT_CONTAIN_NEEDED_PAYLOAD": new InvariantError(
+    "tidak dapat menerima teman karena properti yang dibutuhkan tidak ada"
+  ),
+  "ACCEPT_FRIEND_USE_CASE.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
+    "tidak dapat menerima teman karena tipe data tidak sesuai"
+  ),
+  "DELETE_FRIEND_USE_CASE.NOT_CONTAIN_NEEDED_PAYLOAD": new InvariantError(
+    "tidak dapat menghapus teman karena properti yang dibutuhkan tidak ada"
+  ),
+  "DELETE_FRIEND_USE_CASE.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
+    "tidak dapat menghapus teman karena tipe data tidak sesuai"
+  ),
+  "DELETE_SCHEDULE_USE_CASE.NOT_CONTAIN_NEEDED_PAYLOAD": new InvariantError(
+    "tidak dapat menghapus jadwal karena properti yang dibutuhkan tidak ada"
+  ),
+  "DELETE_SCHEDULE_USE_CASE.NOT_MEET_DATA_TYPE_SPECIFICATION":
+    new InvariantError(
+      "tidak dapat menghapus jadwal karena tipe data tidak sesuai"
+    ),
+  "GET_MEETING_DETAIL_USE_CASE.NOT_CONTAIN_NEEDED_PAYLOAD": new InvariantError(
+    "tidak dapat menampilkan detail meeting karena properti yang dibutuhkan tidak ada"
+  ),
+  "GET_MEETING_DETAIL_USE_CASE.PAYLOAD_NOT_MEET_DATA_TYPE_SPECIFICATION":
+    new InvariantError(
+      "tidak dapat menampilkan detail meeting karena tipe data tidak sesuai"
+    ),
+  "REJECT_FRIEND_USE_CASE.NOT_CONTAIN_NEEDED_PAYLOAD": new InvariantError(
+    "tidak dapat menolak teman karena properti yang dibutuhkan tidak ada"
+  ),
+  "REJECT_FRIEND_USE_CASE.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
+    "tidak dapat menolak teman karena tipe data tidak sesuai"
+  ),
+  "BLOCK_FRIEND_USE_CASE.NOT_CONTAIN_NEEDED_PAYLOAD": new InvariantError(
+    "tidak dapat memblokir teman karena properti yang dibutuhkan tidak ada"
+  ),
+  "BLOCK_FRIEND_USE_CASE.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
+    "tidak dapat memblokir teman karena tipe data tidak sesuai"
+  ),
+  "UNBLOCK_FRIEND_USE_CASE.NOT_CONTAIN_NEEDED_PAYLOAD": new InvariantError(
+    "tidak dapat membuka blokir teman karena properti yang dibutuhkan tidak ada"
+  ),
+  "UNBLOCK_FRIEND_USE_CASE.NOT_MEET_DATA_TYPE_SPECIFICATION":
+    new InvariantError(
+      "tidak dapat membuka blokir teman karena tipe data tidak sesuai"
+    ),
+  "GET_FRIEND_LIST_REQUEST_USE_CASE.NOT_CONTAIN_NEEDED_PAYLOAD":
+    new InvariantError(
+      "tidak dapat menampilkan daftar teman karena properti yang dibutuhkan tidak ada"
+    ),
+  "GET_FRIEND_LIST_REQUEST_USE_CASE.NOT_MEET_DATA_TYPE_SPECIFICATION":
+    new InvariantError(
+      "tidak dapat menampilkan daftar teman karena tipe data tidak sesuai"
+    ),
+  "GET_FRIEND_BLOCKED_LIST.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
+    "tidak dapat menampilkan daftar teman yang diblokir karena properti yang dibutuhkan tidak ada"
+  ),
+  "GET_FRIEND_BLOCKED_LIST.NOT_MEET_DATA_TYPE_SPECIFICATION":
+    new InvariantError(
+      "tidak dapat menampilkan daftar teman yang diblokir karena tipe data tidak sesuai"
+    ),
 };
 
 module.exports = DomainErrorTranslator;

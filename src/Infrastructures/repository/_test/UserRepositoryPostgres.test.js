@@ -1,6 +1,6 @@
 const UsersTableTestHelper = require("../../../../tests/UsersTableTestHelper");
 const AuthenticationError = require("../../../Commons/Exceptions/AuthenticationError");
-const InvariantError = require("../../../Commons/Exceptions/invariantError");
+const InvariantError = require("../../../Commons/Exceptions/InvariantError");
 const RegisterUser = require("../../../Domains/user/entities/RegisterUser");
 const RegisteredUser = require("../../../Domains/user/entities/RegisteredUser");
 const pool = require("../../database/postgres/pool");
@@ -263,6 +263,32 @@ describe("UserRepositoryPostgres", () => {
         username: "dicoding",
         fullname: "Dicoding Indonesia",
       });
+    });
+  });
+
+  describe("verifyAvailableUser", () => {
+    it("should throw InvariantError when username not available", async () => {
+      // Arrange
+      const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
+
+      // Action & Assert
+      await expect(
+        userRepositoryPostgres.verifyAvailableUser("")
+      ).rejects.toThrowError(InvariantError);
+    });
+
+    it("should not throw InvariantError when username available", async () => {
+      // Arrange
+      await UsersTableTestHelper.addUser({
+        id: "user-123",
+        username: "dicoding",
+      });
+      const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
+
+      // Action & Assert
+      await expect(
+        userRepositoryPostgres.verifyAvailableUser("user-123")
+      ).resolves.not.toThrowError(InvariantError);
     });
   });
 });

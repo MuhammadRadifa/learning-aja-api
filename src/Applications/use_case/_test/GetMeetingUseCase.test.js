@@ -3,6 +3,34 @@ const MeetingRepository = require("../../../Domains/meeting/MeetingRepository");
 const GetMeetingUseCase = require("../GetMeetingUseCase");
 
 describe("GetMeetingUseCase", () => {
+  it("should throw error if use case payload not contain needed property", async () => {
+    const useCasePayload = {};
+
+    const getMeetingUseCase = new GetMeetingUseCase({
+      meetingRepository: new MeetingRepository(),
+    });
+
+    await expect(
+      getMeetingUseCase.execute(useCasePayload)
+    ).rejects.toThrowError("GET_MEETING_USE_CASE.NOT_CONTAIN_NEEDED_PAYLOAD");
+  });
+
+  it("should throw error if use case payload not meet data type specification", async () => {
+    const useCasePayload = {
+      id: 123,
+    };
+
+    const getMeetingUseCase = new GetMeetingUseCase({
+      meetingRepository: new MeetingRepository(),
+    });
+
+    await expect(
+      getMeetingUseCase.execute(useCasePayload)
+    ).rejects.toThrowError(
+      "GET_MEETING_USE_CASE.PAYLOAD_NOT_MEET_DATA_TYPE_SPECIFICATION"
+    );
+  });
+
   it("should orchestrating the get meeting action correctly", async () => {
     const useCasePayload = {
       id: "meeting-123",

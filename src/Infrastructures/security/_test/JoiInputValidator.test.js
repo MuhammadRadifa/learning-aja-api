@@ -1,5 +1,5 @@
 const joi = require("joi");
-const InvariantError = require("../../../Commons/Exceptions/invariantError");
+const InvariantError = require("../../../Commons/Exceptions/InvariantError");
 const JoiInputValidator = require("../JoiInputValidator");
 
 describe("JoiInputValidator", () => {

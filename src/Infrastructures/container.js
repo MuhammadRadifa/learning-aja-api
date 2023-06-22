@@ -21,6 +21,9 @@ const TodoRepositoryPostgres = require("./repository/TodoRepositoryPostgres");
 const ScheduleRepository = require("../Domains/schedule/ScheduleRepository");
 const ScheduleRepositoryPostgres = require("./repository/ScheduleRepositoryPostgres");
 
+const FriendRepository = require("../Domains/friend/FriendRepository");
+const FriendRepositoryPostgres = require("./repository/FriendRepositoryPostgres");
+
 const MeetingRepository = require("../Domains/meeting/MeetingRepository");
 const MeetingRepositoryPostgres = require("./repository/MeetingRepositoryPostgres");
 
@@ -54,6 +57,17 @@ const DetailScheduleUseCase = require("../Applications/use_case/DetailScheduleUs
 const DeleteScheduleUseCase = require("../Applications/use_case/DeleteScheduleUseCase");
 const EditScheduleUseCase = require("../Applications/use_case/EditScheduleUseCase");
 const GetUserScheduleUseCase = require("../Applications/use_case/GetUserScheduleUseCase");
+
+// Friend Use Case
+const AcceptFriendUseCase = require("../Applications/use_case/AcceptFriendUseCase");
+const AddFriendUseCase = require("../Applications/use_case/AddFriendUseCase");
+const BlockFriendUseCase = require("../Applications/use_case/BlockFriendUseCase");
+const DeleteFriendUseCase = require("../Applications/use_case/DeleteFriendUseCase");
+const GetFriendBlockedListUseCase = require("../Applications/use_case/GetFriendBlockedListUseCase");
+const GetFriendListUseCase = require("../Applications/use_case/GetFriendListUseCase");
+const GetFriendListRequestUseCase = require("../Applications/use_case/GetFriendListRequestUseCase");
+const RejectFriendUseCase = require("../Applications/use_case/RejectFriendUseCase");
+const UnBlockFriendUseCase = require("../Applications/use_case/UnBlockFriendUseCase");
 
 // Meeting Use Case
 const AddMeetingUseCase = require("../Applications/use_case/AddMeetingUseCase");
@@ -149,6 +163,17 @@ container.register([
         },
         {
           concrete: nanoid,
+        },
+      ],
+    },
+  },
+  {
+    key: FriendRepository.name,
+    Class: FriendRepositoryPostgres,
+    parameter: {
+      dependencies: [
+        {
+          concrete: pool,
         },
       ],
     },
@@ -399,6 +424,135 @@ container.register([
         {
           name: "scheduleRepository",
           internal: ScheduleRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: AcceptFriendUseCase.name,
+    Class: AcceptFriendUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "friendRepository",
+          internal: FriendRepository.name,
+        },
+        {
+          name: "userRepository",
+          internal: UserRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: AddFriendUseCase.name,
+    Class: AddFriendUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "friendRepository",
+          internal: FriendRepository.name,
+        },
+        {
+          name: "userRepository",
+          internal: UserRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: BlockFriendUseCase.name,
+    Class: BlockFriendUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "friendRepository",
+          internal: FriendRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: DeleteFriendUseCase.name,
+    Class: DeleteFriendUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "friendRepository",
+          internal: FriendRepository.name,
+        },
+        {
+          name: "userRepository",
+          internal: UserRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: GetFriendBlockedListUseCase.name,
+    Class: GetFriendBlockedListUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "friendRepository",
+          internal: FriendRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: GetFriendListRequestUseCase.name,
+    Class: GetFriendListRequestUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "friendRepository",
+          internal: FriendRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: GetFriendListUseCase.name,
+    Class: GetFriendListUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "friendRepository",
+          internal: FriendRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: RejectFriendUseCase.name,
+    Class: RejectFriendUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "friendRepository",
+          internal: FriendRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: UnBlockFriendUseCase.name,
+    Class: UnBlockFriendUseCase,
+    parameter: {
+      injectType: "destructuring",
+      dependencies: [
+        {
+          name: "friendRepository",
+          internal: FriendRepository.name,
         },
       ],
     },

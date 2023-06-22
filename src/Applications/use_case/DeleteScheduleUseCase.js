@@ -4,16 +4,24 @@ class DeleteScheduleUseCase {
   }
 
   async execute(useCasePayload) {
-    await this._scheduleRepository.checkAvailabilitySchedule(
-      useCasePayload.scheduleId
-    );
-    await this._scheduleRepository.verifyScheduleOwner(
-      useCasePayload.scheduleId,
-      useCasePayload.ownerId
-    );
-    await this._scheduleRepository.deleteScheduleById(
-      useCasePayload.scheduleId
-    );
+    this._validatePayload(useCasePayload);
+    const { scheduleId, ownerId } = useCasePayload;
+    await this._scheduleRepository.checkAvailabilitySchedule(scheduleId);
+    await this._scheduleRepository.verifyScheduleOwner(scheduleId, ownerId);
+    await this._scheduleRepository.deleteScheduleById(scheduleId);
+  }
+
+  _validatePayload(payload) {
+    const { scheduleId, ownerId } = payload;
+    if (!scheduleId || !ownerId) {
+      throw new Error("DELETE_SCHEDULE_USE_CASE.NOT_CONTAIN_NEEDED_PAYLOAD");
+    }
+
+    if (typeof scheduleId !== "string" || typeof ownerId !== "string") {
+      throw new Error(
+        "DELETE_SCHEDULE_USE_CASE.PAYLOAD_NOT_MEET_DATA_TYPE_SPECIFICATION"
+      );
+    }
   }
 }
 

@@ -1,5 +1,5 @@
 const InputValidator = require("../../Applications/security/InputValidator");
-const InvariantError = require("../../Commons/Exceptions/invariantError");
+const InvariantError = require("../../Commons/Exceptions/InvariantError");
 
 class JoiInputValidator extends InputValidator {
   constructor(joi) {
