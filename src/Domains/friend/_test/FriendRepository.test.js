@@ -37,9 +37,6 @@ describe("FriendRepository interface", () => {
       "FRIEND_REPOSITORY.METHOD_NOT_IMPLEMENTED"
     );
     await expect(
-      friendRepository.checkFriendRequest("", "")
-    ).rejects.toThrowError("FRIEND_REPOSITORY.METHOD_NOT_IMPLEMENTED");
-    await expect(
       friendRepository.checkBlockFriend("", "")
     ).rejects.toThrowError("FRIEND_REPOSITORY.METHOD_NOT_IMPLEMENTED");
     await expect(
@@ -60,5 +57,8 @@ describe("FriendRepository interface", () => {
     await expect(friendRepository.verifyBlockUser("", "")).rejects.toThrowError(
       "FRIEND_REPOSITORY.METHOD_NOT_IMPLEMENTED"
     );
+    await expect(
+      friendRepository.verifyIsYourSelf("", "")
+    ).rejects.toThrowError("FRIEND_REPOSITORY.METHOD_NOT_IMPLEMENTED");
   });
 });

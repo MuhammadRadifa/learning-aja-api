@@ -6,6 +6,7 @@ class BlockFriendUseCase {
   async execute(useCasePayload) {
     this._validatePayload(useCasePayload);
     const { userId, blockId } = useCasePayload;
+    await this._friendRepository.verifyIsYourSelf(userId, blockId);
     await this._friendRepository.verifyBlockUser(userId, blockId);
     await this._friendRepository.blockFriend(userId, blockId);
   }

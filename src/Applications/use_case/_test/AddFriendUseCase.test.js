@@ -22,6 +22,7 @@ describe("AddFriendUseCase", () => {
 
     /** mocking needed function */
     mockUserRepository.verifyAvailableUser = jest.fn(() => Promise.resolve());
+    mockFriendRepository.verifyIsYourSelf = jest.fn(() => Promise.resolve());
     mockFriendRepository.verifyFriendRequest = jest.fn(() => Promise.resolve());
     mockFriendRepository.addFriend = jest.fn(() =>
       Promise.resolve(expectedPostedFriend)

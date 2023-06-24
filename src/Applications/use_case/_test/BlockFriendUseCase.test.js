@@ -51,6 +51,7 @@ describe("BlockFriendUseCase", () => {
     });
 
     // Mocking
+    mockFriendRepository.verifyIsYourSelf = jest.fn(() => Promise.resolve());
     mockFriendRepository.verifyBlockUser = jest.fn(() => Promise.resolve());
     mockFriendRepository.blockFriend = jest.fn(() => Promise.resolve());
 
