@@ -312,45 +312,6 @@ describe("FriendRepositoryPostgres", () => {
       });
     });
 
-    describe("checkFriendRequest function", () => {
-      it("should throw not found error when friend request not found", async () => {
-        const userId = "user-123";
-        const friendId = "user-321";
-        await UsersTableTestHelper.addUser({
-          id: userId,
-          username: "dicoding",
-        });
-        await UsersTableTestHelper.addUser({
-          id: friendId,
-          username: "dicoding2",
-        });
-        const friendRepositoryPostgres = new FriendRepositoryPostgres(pool);
-
-        await expect(
-          friendRepositoryPostgres.checkFriendRequest(userId, friendId)
-        ).rejects.toThrowError(NotFoundError);
-      });
-
-      it("should not throw not found error", async () => {
-        const userId = "user-123";
-        const friendId = "user-321";
-        await UsersTableTestHelper.addUser({
-          id: userId,
-          username: "dicoding",
-        });
-        await UsersTableTestHelper.addUser({
-          id: friendId,
-          username: "dicoding2",
-        });
-        await FriendTableTestHelper.addFriend(userId, friendId);
-        const friendRepositoryPostgres = new FriendRepositoryPostgres(pool);
-
-        await expect(
-          friendRepositoryPostgres.checkFriendRequest(userId, friendId)
-        ).resolves.not.toThrowError(NotFoundError);
-      });
-    });
-
     describe("checkBlockFriend function", () => {
       it("should throw not found error when block friend not found", async () => {
         const userId = "user-123";
@@ -513,6 +474,21 @@ describe("FriendRepositoryPostgres", () => {
         await expect(
           friendRepositoryPostgres.verifyUserUnblocking(userId, friendId)
         ).rejects.toThrowError(AuthorizationError);
+      });
+    });
+
+    describe("verifyIsYourSelf function", () => {
+      it("should throw InvariantError when found", async () => {
+        const userId = "user-123";
+        const friendRepositoryPostgres = new FriendRepositoryPostgres(pool);
+        await UsersTableTestHelper.addUser({
+          id: userId,
+          username: "dicoding",
+        });
+
+        await expect(
+          friendRepositoryPostgres.verifyIsYourSelf(userId, userId)
+        ).rejects.toThrowError(InvariantError);
       });
     });
 

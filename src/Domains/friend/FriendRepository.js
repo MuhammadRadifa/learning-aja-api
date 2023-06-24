@@ -39,10 +39,6 @@ class FriendRepository {
     throw new Error("FRIEND_REPOSITORY.METHOD_NOT_IMPLEMENTED");
   }
 
-  async checkFriendRequest(userId, friendId) {
-    throw new Error("FRIEND_REPOSITORY.METHOD_NOT_IMPLEMENTED");
-  }
-
   async checkBlockFriend(userId, friendId) {
     throw new Error("FRIEND_REPOSITORY.METHOD_NOT_IMPLEMENTED");
   }
@@ -64,6 +60,10 @@ class FriendRepository {
   }
 
   async verifyBlockUser(userId, friendId) {
+    throw new Error("FRIEND_REPOSITORY.METHOD_NOT_IMPLEMENTED");
+  }
+
+  async verifyIsYourSelf(userId, friendId) {
     throw new Error("FRIEND_REPOSITORY.METHOD_NOT_IMPLEMENTED");
   }
 

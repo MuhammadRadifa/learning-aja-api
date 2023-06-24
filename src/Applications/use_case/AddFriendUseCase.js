@@ -9,6 +9,7 @@ class AddFriendUseCase {
   async execute(useCasePayload) {
     const { userId, friendId } = new PostFriend(useCasePayload);
     await this._userRepository.verifyAvailableUser(friendId);
+    await this._friendRepository.verifyIsYourSelf(userId, friendId);
     await this._friendRepository.verifyFriendRequest(userId, friendId);
     return this._friendRepository.addFriend(userId, friendId);
   }

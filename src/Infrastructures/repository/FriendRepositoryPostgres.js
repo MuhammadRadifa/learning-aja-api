@@ -41,7 +41,7 @@ class FriendRepositoryPostgres extends FriendRepository {
 
     if (!result.rows.length) {
       throw new AuthorizationError(
-        "Anda tidak memiliki akses untuk mengakses resource ini"
+        "anda tidak memiliki hak untuk mengakses resource ini"
       );
     }
 
@@ -125,19 +125,6 @@ class FriendRepositoryPostgres extends FriendRepository {
     }
   }
 
-  async checkFriendRequest(userId, friendId) {
-    const query = {
-      text: `SELECT * FROM "waitingList" WHERE "senderId" = $1 AND "receiverId" = $2`,
-      values: [userId, friendId],
-    };
-
-    const result = await this._pool.query(query);
-
-    if (!result.rowCount) {
-      throw new NotFoundError("anda belum mengirimkan permintaan pertemanan");
-    }
-  }
-
   async checkBlockFriend(userId, friendId) {
     const query = {
       text: `SELECT * FROM "blockList" WHERE "userId" = $1 AND "blockId" = $2`,
@@ -186,7 +173,9 @@ class FriendRepositoryPostgres extends FriendRepository {
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      throw new AuthorizationError("anda tidak memiliki hak akses");
+      throw new AuthorizationError(
+        "anda tidak memiliki hak untuk mengakses resource ini"
+      );
     }
   }
 
@@ -199,7 +188,9 @@ class FriendRepositoryPostgres extends FriendRepository {
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      throw new AuthorizationError("anda tidak memiliki hak akses");
+      throw new AuthorizationError(
+        "anda tidak memiliki hak untuk mengakses resource ini"
+      );
     }
   }
 
@@ -212,7 +203,9 @@ class FriendRepositoryPostgres extends FriendRepository {
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      throw new AuthorizationError("anda tidak memiliki hak akses");
+      throw new AuthorizationError(
+        "anda tidak memiliki hak untuk mengakses resource ini"
+      );
     }
   }
 
@@ -226,6 +219,21 @@ class FriendRepositoryPostgres extends FriendRepository {
 
     if (result.rowCount) {
       throw new InvariantError("user ini sudah anda blokir");
+    }
+  }
+
+  async verifyIsYourSelf(userId, friendId) {
+    const query = {
+      text: `SELECT * FROM "users" WHERE "id" = $1 AND "id" = $2`,
+      values: [userId, friendId],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (result.rowCount) {
+      throw new InvariantError(
+        "anda tidak dapat berteman atau block diri anda sendiri"
+      );
     }
   }
 
